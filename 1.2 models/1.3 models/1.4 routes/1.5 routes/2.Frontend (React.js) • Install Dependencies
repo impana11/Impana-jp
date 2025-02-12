@@ -1,0 +1,5 @@
+Npx create-react-app frontend
+
+Cd frontend
+
+Npm install axios react-router-dom bootstrap
