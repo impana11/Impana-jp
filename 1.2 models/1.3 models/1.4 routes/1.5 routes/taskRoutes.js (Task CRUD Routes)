@@ -1,0 +1,78 @@
+const express = require(‘express’);
+
+const Task = require(‘../models/Task’);
+
+const router = express.Router();
+
+// Create a Task
+
+Router.post(‘/’, async (req, res) => {
+
+ Const { title, description, category, userId } = req.body;
+
+ Const task = new Task({ title, description, category, userId }
+
+ Try {
+
+ Await task.save();
+
+ Res.status(201).json(task);
+
+ } catch (error) {
+
+ Res.status(500).json({ message: ‘Error creating task’ });
+
+ }
+
+});
+
+// Get All Tasks
+
+Router.get(‘/:userId’, async (req, res) => {
+
+ Const tasks = await Task.find({ userId: req.params.userId });
+
+ Res.json(tasks);
+
+});
+
+// Update a Task
+
+Router.put(‘/:id’, async (req, res) => {
+
+ Const { title, description, category, status } = req.body;
+
+ Try {
+
+ Const task = await Task.findByIdAndUpdate(req.params.id, { title, description, 
+
+category, status }, { new: true });
+
+ Res.json(task);
+ } catch (error) {
+
+ Res.status(500).json({ message: ‘Error updating task’ });
+
+ }
+
+});
+
+// Delete a Task
+
+Router.delete(‘/:id’, async (req, res) => {
+
+ Try {
+
+ Await Task.findByIdAndDelete(req.params.id);
+
+ Res.json({ message: ‘Task deleted’ });
+
+ } catch (error) {
+
+ Res.status(500).json({ message: ‘Error deleting task’ });
+
+ }
+
+});
+
+Module.exports = router;
